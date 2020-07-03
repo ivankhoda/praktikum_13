@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: [true, 'Введите валидную ссылку, пожалуйста'],
     validate: {
-      validator() {
-        // return
+      validator(v) {
+        return /(http)?s?:?(\/\/[^"']*\.(?:png|jpg|jpeg|gif|png|svg))/.test(v);
       },
-      message: 'URL в формате: http://mysite.ru',
+      message: 'Ссылка на картинку, должна быть валидной.',
     },
   },
 });

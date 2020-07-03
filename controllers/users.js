@@ -12,7 +12,7 @@ module.exports.getUserById = (req, res) => {
   const { id } = req.params;
 
   user.find({ _id: `${id}` }, (err, result) => {
-    if (!result) {
+    if ((!result) || (result.length === 0)) {
       res.status(404).send({ message: `Пользователя с ID ${id} не существует.` });
     } else {
       res.send(result);

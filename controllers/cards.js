@@ -22,9 +22,9 @@ module.exports.createCard = (req, res) => {
 module.exports.deleteCardById = (req, res) => {
   const { id } = req.params;
 
-  card.findOneAndDelete({ _id: `${id}` }, ((err) => {
-    if (err) {
-      res.status(404).send({ message: `Не удалось удалить картинку с ID ${id} по причине ${err}` });
+  card.findOneAndDelete({ _id: `${id}` }, ((err, result) => {
+    if ((!result) || (result.length === 0)) {
+      res.status(404).send({ message: `Картинки с ID ${id} не существует.` });
     } else {
       res.send({ message: 'Картинка успешно удалена' });
     }
