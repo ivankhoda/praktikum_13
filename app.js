@@ -20,7 +20,8 @@ mongoose.connect(dbUrl, {
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '5efcaae5bf5c8cb684d39973',
+    // eslint-disable-next-line no-underscore-dangle
+    _id: req.params._id,
   };
   next();
 });

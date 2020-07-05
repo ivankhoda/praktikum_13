@@ -31,3 +31,29 @@ module.exports.deleteCardById = (req, res) => {
   }))
     .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
 };
+
+module.exports.likeCard = (req, res) => {
+  card.findByIdAndUpdate(
+    { _id: req.params.cardId },
+    // eslint-disable-next-line no-underscore-dangle
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((obj) => {
+      res.send(obj);
+    })
+    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+};
+
+module.exports.dislikeCard = (req, res) => {
+  card.findByIdAndUpdate(
+    { _id: req.params.cardId },
+    // eslint-disable-next-line no-underscore-dangle
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((obj) => {
+      res.send(obj);
+    })
+    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+};

@@ -29,3 +29,37 @@ module.exports.createUser = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
 };
+
+module.exports.updateUserProfile = (req, res) => {
+  user.findByIdAndUpdate(
+    // eslint-disable-next-line no-underscore-dangle
+    { _id: req.params._id },
+    {
+      $set: {
+        // _id: ObjectId,
+        name: req.body.name,
+        about: req.body.about,
+      },
+    },
+  )
+    .then((obj) => {
+      res.send(obj);
+    })
+    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+};
+module.exports.updateUserAvatar = (req, res) => {
+  user.findByIdAndUpdate(
+    // eslint-disable-next-line no-underscore-dangle
+    { _id: req.params._id },
+    {
+      $set: {
+        // _id: ObjectId,
+        avatar: req.body.avatar,
+      },
+    },
+  )
+    .then((obj) => {
+      res.send(obj);
+    })
+    .catch((err) => res.status(500).send({ message: `Произошла ошибка ${err}` }));
+};
